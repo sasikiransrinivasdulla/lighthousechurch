@@ -725,3 +725,100 @@ h1, h2, h3, h4, h5, h6 {
     --text: #333333;
     --text-light: #f8f4e9;
 }
+/* Updated Sermon Card Styles */
+.sermon-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.sermon-card:hover {
+    transform: translateY(-5px);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.sermon-card h3 {
+    padding: 1rem 1rem 0.5rem;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.sermon-date {
+    padding: 0 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.sermon-actions {
+    display: flex;
+    padding: 1rem;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.sermon-actions button, 
+.sermon-actions a {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.share-btn {
+    background-color: var(--primary);
+    color: white;
+}
+
+.share-btn:hover {
+    background-color: var(--accent);
+}
+
+.youtube-btn {
+    background-color: #FF0000;
+    color: white;
+}
+
+.youtube-btn:hover {
+    background-color: #CC0000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .sermon-actions {
+        flex-direction: column;
+    }
+    
+    .sermon-actions button,
+    .sermon-actions a {
+        width: 100%;
+    }
+}

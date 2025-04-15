@@ -99,3 +99,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+// YouTube Video Sharing Functionality
+document.querySelectorAll('.share-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const videoId = this.getAttribute('data-video');
+        const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+        const videoTitle = this.closest('.sermon-card').querySelector('h3').textContent;
+        
+        const shareText = `${videoTitle}\n\n${videoUrl}\n\nలైట్హౌస్ చర్చి YouTube ఉపదేశం`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: videoTitle,
+                text: shareText,
+                url: videoUrl
+            }).catch(err => {
+                console.log('Error sharing:', err);
+                fallbackShare(shareText);
+            });
+        } else {
+            fallbackShare(shareText);
+        }
+    });
+});
+
+function fallbackShare(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('వీడియో లింక్ కాపీ అయ్యింది!');
+    }).catch(err => {
+        console.log('Could not copy text: ', err);
+        prompt('ఈ వీడియోను షేర్ చేయండి:', text);
+    });
+}
