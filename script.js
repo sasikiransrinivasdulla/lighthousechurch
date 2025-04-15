@@ -39,31 +39,31 @@ function updateDailyVerse() {
 
 // Share button functionality
 document.querySelector('.share-verse').addEventListener('click', () => {
-    const verseText = document.querySelector('.verse-text').textContent;
-    const verseRef = document.querySelector('.verse-reference').textContent;
-    const shareText = `${verseText} - ${verseRef}\n\nShared from Lighthouse Church`;
+    const shareText = "నేటి బైబిల్ వాక్యం - లైట్హౌస్ చర్చి";
+    const imageUrl = document.querySelector('.verse-image img').src;
     
     if (navigator.share) {
         navigator.share({
-            title: "Today's Bible Verse",
+            title: "నేటి బైబిల్ వాక్యం",
             text: shareText,
             url: window.location.href
         }).catch(err => {
             console.log('Error sharing:', err);
-            fallbackShare(shareText);
+            fallbackShare(shareText, imageUrl);
         });
     } else {
-        fallbackShare(shareText);
+        fallbackShare(shareText, imageUrl);
     }
 });
 
-function fallbackShare(text) {
-    // Copy to clipboard as fallback
-    navigator.clipboard.writeText(text).then(() => {
-        alert('Verse copied to clipboard!');
+function fallbackShare(text, imageUrl) {
+    // For devices that don't support sharing images directly
+    const shareUrl = `${window.location.href}?verse=${encodeURIComponent(imageUrl)}`;
+    navigator.clipboard.writeText(`${text}\n${shareUrl}`).then(() => {
+        alert('వాక్యం లింక్ కాపీ అయ్యింది!');
     }).catch(err => {
         console.log('Could not copy text: ', err);
-        prompt('Copy this verse:', text);
+        prompt('ఈ వాక్యాన్ని షేర్ చేయండి:', `${text}\n${shareUrl}`);
     });
 }
 
